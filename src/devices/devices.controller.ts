@@ -11,6 +11,12 @@ export class DevicesController {
     return devices
   }
 
+  @Get('total')
+  async getDevicesTotal(): Promise<number> {
+    const total = await this.deviceService.getDevicesTotal()
+    return total
+  }
+
   @Get(':id')
   async getDeviceById(@Param() params: any): Promise<Device> {
     const { id } = params

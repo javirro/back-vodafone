@@ -19,6 +19,11 @@ export const getDeviceByIdQuery = async (id: number): Promise<RawDeviceFromDb> =
   return devices
 }
 
+export const getDevicesTotalQuery = async (): Promise<number> => {
+  const res = await dbClient.query('SELECT COUNT(*) FROM devices')
+  return +res.rows[0].count
+}
+
 export const deleteDeviceByIdQuery = async (id: number): Promise<void> => {
   await dbClient.query('DELETE FROM devices WHERE id = $1', [id])
 }

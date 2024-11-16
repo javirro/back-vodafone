@@ -1,5 +1,13 @@
 import { Injectable } from '@nestjs/common'
-import { addDeviceQuery, deleteDeviceByIdQuery, getDeviceByIdQuery, getDevicesPaginatedQuery, getDevicesQuery, updateDeviceByIdQuery } from 'src/db/queries'
+import {
+  addDeviceQuery,
+  deleteDeviceByIdQuery,
+  getDeviceByIdQuery,
+  getDevicesPaginatedQuery,
+  getDevicesQuery,
+  getDevicesTotalQuery,
+  updateDeviceByIdQuery,
+} from 'src/db/queries'
 import { formatDevices } from 'src/helpers/formatData'
 import { Device } from 'src/types/types'
 
@@ -18,6 +26,10 @@ export class DevicesService {
   async getDeviceById(id: number): Promise<Device> {
     const device = await getDeviceByIdQuery(id)
     return formatDevices([device])[0]
+  }
+
+  async getDevicesTotal(): Promise<number> {
+    return await getDevicesTotalQuery()
   }
   async deleteDeviceById(id: number): Promise<void> {
     await deleteDeviceByIdQuery(id)
