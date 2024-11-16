@@ -7,6 +7,12 @@ export const getDevicesQuery = async (): Promise<RawDeviceFromDb[]> => {
   return devices
 }
 
+export const getDevicesPaginatedQuery = async (limit: number, offset: number): Promise<RawDeviceFromDb[]> => {
+  const res = await dbClient.query('SELECT * FROM devices LIMIT $1 OFFSET $2', [limit, offset])
+  const devices: RawDeviceFromDb[] = res.rows
+  return devices
+}
+
 export const getDeviceByIdQuery = async (id: number): Promise<RawDeviceFromDb> => {
   const res = await dbClient.query('SELECT * FROM devices WHERE id = $1', [id])
   const devices: RawDeviceFromDb = res.rows[0]

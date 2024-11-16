@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common'
-import { addDeviceQuery, deleteDeviceByIdQuery, getDeviceByIdQuery, getDevicesQuery, updateDeviceByIdQuery } from 'src/db/queries'
+import { addDeviceQuery, deleteDeviceByIdQuery, getDeviceByIdQuery, getDevicesPaginatedQuery, getDevicesQuery, updateDeviceByIdQuery } from 'src/db/queries'
 import { formatDevices } from 'src/helpers/formatData'
 import { Device } from 'src/types/types'
 
@@ -9,6 +9,12 @@ export class DevicesService {
     const devices = await getDevicesQuery()
     return formatDevices(devices)
   }
+  async getDevicesPaginated(limit: number, page: number): Promise<Device[]> {
+    const offset = (page - 1) * limit
+    const devices = await getDevicesPaginatedQuery(limit, offset)
+    return formatDevices(devices)
+  }
+
   async getDeviceById(id: number): Promise<Device> {
     const device = await getDeviceByIdQuery(id)
     return formatDevices([device])[0]

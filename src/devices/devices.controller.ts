@@ -35,4 +35,11 @@ export class DevicesController {
     const { name, phone, lastConnection, lat, lon } = body
     await this.deviceService.updateDeviceById(+id, [name, phone, lastConnection, lat, lon])
   }
+
+  @Get('paginated/:limit/:page')
+  async getDevicesPaginated(@Param() params: any): Promise<Device[]> {
+    const { limit, page } = params
+    const devices = await this.deviceService.getDevicesPaginated(limit, page)
+    return devices
+  }
 }
