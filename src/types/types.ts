@@ -8,3 +8,5 @@ export type Device = {
 }
 
 export type RawDeviceFromDb = Omit<Device, 'lastConnection'> & { last_connection: number; created_at: string }
+
+export type AddDeviceForm = Omit<Device, 'id'>
