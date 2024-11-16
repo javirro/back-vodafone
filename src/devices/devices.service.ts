@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common'
-import { addDeviceQuery, deleteDeviceByIdQuery, getDeviceByIdQuery, getDevicesQuery } from 'src/db/queries'
+import { addDeviceQuery, deleteDeviceByIdQuery, getDeviceByIdQuery, getDevicesQuery, updateDeviceByIdQuery } from 'src/db/queries'
 import { formatDevices } from 'src/helpers/formatData'
 import { Device } from 'src/types/types'
 
@@ -18,5 +18,8 @@ export class DevicesService {
   }
   async addDevice(values: [string, string, number, number, number]): Promise<void> {
     await addDeviceQuery(values)
+  }
+  async updateDeviceById(id: number, values: [string, string, number, number, number]): Promise<void> {
+    await updateDeviceByIdQuery(id, values)
   }
 }

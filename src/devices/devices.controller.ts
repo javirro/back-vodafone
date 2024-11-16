@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common'
+import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common'
 import { DevicesService } from './devices.service'
 import { AddDeviceForm, Device } from 'src/types/types'
 
@@ -28,5 +28,11 @@ export class DevicesController {
   async addDevice(@Body() body: AddDeviceForm): Promise<void> {
     const { name, phone, lastConnection, lat, lon } = body
     await this.deviceService.addDevice([name, phone, lastConnection, lat, lon])
+  }
+  @Put(':id')
+  async updateDeviceById(@Param() params: any, @Body() body: AddDeviceForm): Promise<void> {
+    const { id } = params
+    const { name, phone, lastConnection, lat, lon } = body
+    await this.deviceService.updateDeviceById(+id, [name, phone, lastConnection, lat, lon])
   }
 }

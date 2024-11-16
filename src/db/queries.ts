@@ -20,3 +20,7 @@ export const deleteDeviceByIdQuery = async (id: number): Promise<void> => {
 export const addDeviceQuery = async (values: [string, string, number, number, number]): Promise<void> => {
   await dbClient.query('INSERT INTO devices (name, phone, last_connection, lat, lon) VALUES ($1, $2, $3, $4, $5)', values)
 }
+
+export const updateDeviceByIdQuery = async (id: number, values: [string, string, number, number, number]): Promise<void> => {
+  await dbClient.query('UPDATE devices SET name = $1, phone = $2, last_connection = $3, lat = $4, lon = $5 WHERE id = $6', [...values, id])
+}
