@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common'
+import { Body, Controller, Delete, Get, HttpCode, Param, Post, Put } from '@nestjs/common'
 import { DevicesService } from './devices.service'
 import { AddDeviceForm, Device } from 'src/types/types'
 
@@ -18,26 +18,25 @@ export class DevicesController {
   }
 
   @Get(':id')
-  async getDeviceById(@Param() params: any): Promise<Device> {
-    const { id } = params
+  async getDeviceById(@Param('id') id: string): Promise<Device> {
     const device = await this.deviceService.getDeviceById(+id)
     return device
   }
 
   @Delete(':id')
-  async deleteDeviceById(@Param() params: any): Promise<void> {
-    const { id } = params
+  @HttpCode(204)
+  async deleteDeviceById(@Param('id') id: string): Promise<void> {
     await this.deviceService.deleteDeviceById(+id)
   }
 
   @Post()
+  @HttpCode(201)
   async addDevice(@Body() body: AddDeviceForm): Promise<void> {
     const { name, phone, lastConnection, lat, lon } = body
     await this.deviceService.addDevice([name, phone, lastConnection, lat, lon])
   }
   @Put(':id')
-  async updateDeviceById(@Param() params: any, @Body() body: AddDeviceForm): Promise<void> {
-    const { id } = params
+  async updateDeviceById(@Param('id') id: string, @Body() body: AddDeviceForm): Promise<void> {
     const { name, phone, lastConnection, lat, lon } = body
     await this.deviceService.updateDeviceById(+id, [name, phone, lastConnection, lat, lon])
   }
