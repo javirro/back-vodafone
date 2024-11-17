@@ -14,6 +14,13 @@ The application was deployed using Railway platform.
 
 https://back-vodafone-production.up.railway.app
 
+## Environment variables
+
+- PORT
+- UI_URL: (example: http://localhost:3000)
+- DATABASE_URL
+
+
 ## Project setup
 
 ```bash
